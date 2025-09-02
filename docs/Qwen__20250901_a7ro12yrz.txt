@@ -1,0 +1,94 @@
+──────────────────────────────────────────────────────────────────────────────
+                             DIAGRAMA ER - SISTEMA DE GESTÃO DE VENDAS
+                                  (Formato ASCII com Cardinalidades)
+──────────────────────────────────────────────────────────────────────────────
+
+    ┌───────────────────┐               ┌───────────────────┐
+    │     CLIENTE       │               │     CRIANÇA        │
+    ├───────────────────┤1           N  ├───────────────────┤
+    │ id (PK)           │◄──────────────┤ cliente_id (FK)    │
+    │ nome_completo     │               │ id (PK)            │
+    │ telefone          │               │ nome               │
+    │ endereco          │               │ sexo               │
+    │ instagram         │               │ data_aniversario   │
+    └───────────────────┘               │ observacoes        │
+                                        └───────────────────┘
+                                                 ▲
+                                                 │
+                                                 │
+                                                 │
+                                        ┌───────────────────┐
+                                        │       VENDA       │
+                                        ├───────────────────┤N
+                                        │ id (PK)           │
+                                        │ cliente_id (FK)   │◄──┐
+                                        │ produto_id (FK)   │   │
+                                        │ tamanho_crianca   │   │
+                                        │ descricao_peca    │   │
+                                        │ data_compra       │   │
+                                        │ data_entrega      │   │
+                                        │ quantidade        │   │
+                                        │ valor_total       │   │
+                                        │ status_id (FK)    │   │
+                                        │ forma_pagamento   │   │
+                                        │ pix_entrada       │   │
+                                        │ data_entrada_pix  │   │
+                                        └───────────────────┘   │
+                                                │               │
+                                                │               │
+                                                │               │
+              ┌────────────────────┐            │               │
+              │     PRODUTO        │◄───────────┘               │
+              ├────────────────────┤1                          │
+              │ id (PK)            │                           │
+              │ tipo               │                           │
+              │ descricao          │                           │
+              └────────────────────┘                           │
+                                                               │
+                                                               │
+              ┌────────────────────┐                           │
+              │  STATUS_ENTREGA    │◄──────────────────────────┘
+              ├────────────────────┤1
+              │ id (PK)            │
+              │ nome               │
+              └────────────────────┘
+                            ▲
+                            │
+                            │
+                            │
+              ┌────────────────────┐
+              │     PAGAMENTO      │
+              ├────────────────────┤N
+              │ id (PK)            │
+              │ venda_id (FK)      │◄────────────────────────────┐
+              │ forma_pagamento    │                             │
+              │ valor              │                             │
+              │ data_pagamento     │                             │
+              │ observacao         │                             │
+              └────────────────────┘                             │
+                                                                 │
+                                                                 │
+              ┌────────────────────┐                             │
+              │      DESPESA       │                             │
+              ├────────────────────┤                             │
+              │ id (PK)            │                             │
+              │ data               │                             │
+              │ tipo_despesa       │                             │
+              │ descricao          │                             │
+              │ forma_pagamento    │                             │
+              │ valor              │                             │
+              └────────────────────┘                             │
+                                                                 │
+                                                                 │
+              ┌────────────────────┐                             │
+              │     RELATORIO      │                             │
+              ├────────────────────┤                             │
+              │ id (PK)            │                             │
+              │ mes_ano            │                             │
+              │ faturamento_mensal │                             │
+              │ cliente_destaque_id│◄────────────────────────────┘ (FK → CLIENTE)
+              │ crescimento_anual  │
+              │ programa_indicacao_ativado │
+              │ ticket_medio_cliente     │
+              │ aniversariantes (JSON)   │
+              └──────────────────────────┘
